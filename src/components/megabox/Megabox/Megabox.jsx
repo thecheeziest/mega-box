@@ -56,7 +56,7 @@ const Megabox = () => {
         if (id === 2) { // 상영중
             setData(datalist.filter(item => item.openDt.replace(/-/g, "") < 20230605));
         } else if (id === 3) { // 개봉예정작
-            setData(datalist.filter(item => item.openDt.replace(/-/g, "") > 20230605))
+            setData(datalist.filter(item => item.openDt.replace(/-/g, "") > 20230605));
         } else {
             setData(datalist); // 전체
         }
@@ -80,7 +80,7 @@ const Megabox = () => {
         {
             data && loading ?
             <Container>
-            <h2 onClick={() => {setData(datalist)}}>MEGABOX</h2>
+            <h2 onClick={() => onTab(1)}>MEGABOX</h2>
             <MegaboxForm onSearch={onSearch} />
         
             <MegaboxList data={data} onModal={onModal} onLike={onLike} onTab={onTab} tablist={tablist} onToggle={onToggle} />
