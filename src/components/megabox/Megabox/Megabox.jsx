@@ -55,24 +55,25 @@ const Megabox = () => {
     const onTab = id => {
         if (id === 2) { // 상영중
             setData(datalist.filter(item => item.openDt.replace(/-/g, "") < 20230605));
+            setToggle(true);
         } else if (id === 3) { // 개봉예정작
             setData(datalist.filter(item => item.openDt.replace(/-/g, "") > 20230605));
+            setToggle(false);
         } else {
             setData(datalist); // 전체
+            setToggle(false);
         }
         setTablist(tablist.map(item => item.id === id ? {...item, ontab: true} : {...item, ontab: false} ))
     }
 
     // 토글
     const onToggle = () => {
-        if (toggle) { // false일 때
-            setData(datalist) // 전체 보기
-            setTablist(tablist.map(item => item.id === 1 ? {...item, ontab: true} : {...item, ontab: false} ))
-        } else { // true일 때
-            setData(datalist.filter(item => item.openDt.replace(/-/g, "") < 20230605)); // 현재 상영 중인 것만
-            setTablist(tablist.map(item => item.id === 2 ? {...item, ontab: true} : {...item, ontab: false} ))
-        }
-        setToggle(!toggle);
+            setToggle(!toggle);
+            if (!toggle) {
+                onTab(2);
+            } else {
+                onTab(1);
+            }
     }
 
     return (
@@ -83,7 +84,7 @@ const Megabox = () => {
             <h2 onClick={() => onTab(1)}>MEGABOX</h2>
             <MegaboxForm onSearch={onSearch} />
         
-            <MegaboxList data={data} onModal={onModal} onLike={onLike} onTab={onTab} tablist={tablist} onToggle={onToggle} />
+            <MegaboxList data={data} onModal={onModal} onLike={onLike} onTab={onTab} tablist={tablist} onToggle={onToggle} toggle={toggle} />
             {
                 showModal &&
                 modalItem.map(item => <MegaboxModal onModal={onModal} item={item} />)
