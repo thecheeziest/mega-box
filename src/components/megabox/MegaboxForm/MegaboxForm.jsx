@@ -7,6 +7,7 @@ const MegaboxForm = ({onSearch}) => {
     const onSubmit = e => {
         e.preventDefault();
         onSearch(text);
+        setText('');
     }
 
     return (

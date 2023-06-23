@@ -17,7 +17,7 @@ const Megabox = () => {
     const [tablist, setTablist] = useState([{ontab: true, id: 1, tname: '전체 영화'}, {ontab: false, id: 2, tname: '현재 상영 중'}, {ontab: false, id: 3, tname: '개봉 예정작'}]);
 
     useEffect(() => {
-        const url = 'https://gist.githubusercontent.com/thecheeziest/9ff5d1a64e9348aaec63020bd6efdaed/raw/7557b8fa4757ba1a4ad1b850b51eaaf1ddbf8d0f/megabox.json';
+        const url = 'https://gist.githubusercontent.com/thecheeziest/9ff5d1a64e9348aaec63020bd6efdaed/raw/87ffe1017bef54cdbf6ee3861f1785ec8ee30935/megabox.json';
         axios.get(url)
              .then(res => {
                 setData(res.data);
@@ -42,7 +42,7 @@ const Megabox = () => {
     const onLike = rnum => {
         setLike(!like);
         setData(data.map(item => item.rnum === rnum ?
-            {...item, like: like} : item ))
+            {...item, like: !like} : item ))
     }
 
     // 모달 띄우기/닫기
@@ -67,8 +67,10 @@ const Megabox = () => {
     const onToggle = () => {
         if (toggle) { // false일 때
             setData(datalist) // 전체 보기
+            setTablist(tablist.map(item => item.id === 1 ? {...item, ontab: true} : {...item, ontab: false} ))
         } else { // true일 때
             setData(datalist.filter(item => item.openDt.replace(/-/g, "") < 20230605)); // 현재 상영 중인 것만
+            setTablist(tablist.map(item => item.id === 2 ? {...item, ontab: true} : {...item, ontab: false} ))
         }
         setToggle(!toggle);
     }
@@ -78,7 +80,7 @@ const Megabox = () => {
         {
             data && loading ?
             <Container>
-            <h2 onClick={() => setData(datalist)}>MEGABOX</h2>
+            <h2 onClick={() => {setData(datalist)}}>MEGABOX</h2>
             <MegaboxForm onSearch={onSearch} />
         
             <MegaboxList data={data} onModal={onModal} onLike={onLike} onTab={onTab} tablist={tablist} onToggle={onToggle} />
@@ -94,5 +96,4 @@ const Megabox = () => {
     );
 };
 
-// export default Megabox;
 export default React.memo(Megabox);

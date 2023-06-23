@@ -6,6 +6,7 @@ width: 100vw;
 margin: auto;
 padding: 50px 0 100px;
 box-sizing: border-box;
+user-select: none;
 h2 {
     font-weight: 900; color: #352461;
     margin: 20px auto 50px;
@@ -18,8 +19,6 @@ h2 {
 
 // MegaboxForm
 export const MegaboxSearchForm = styled.form`
-/* padding-bottom:20px; */
-/* margin-bottom: 20px; */
 text-align: center; 
     input {
         width: 50%; height: 7vh;  border: 1px solid #bcb0d0; padding:3px 25px; font-size: 15px; outline: none;
@@ -38,9 +37,10 @@ export const MegaboxTabBox = styled.div`
         border: 1px solid #21163d;
         border-bottom: none;
         border-radius: 15px 15px 0 0;
-        letter-spacing: -1.5px;
+        letter-spacing: -2.5px;
         color: #bcb0b0;
         font-size: 20px;
+        font-weight: 700;
         cursor: pointer;
         &:hover {
             background: #9f03c0;
@@ -69,16 +69,47 @@ background: #352461;
         background: #FFF;
         box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
         margin: 0 20px 55px;
-        &:hover { transform: scale(110%); transition: 0.3s; }
-        img { width: 245px; }
+        position: relative;
+        &:hover {
+            transform: scale(110%); transition: 0.3s; }
+        }
+        .img {
+            position: relative;
+            height: 350px;
+            .txt {
+                content: "";
+                width: 100%; height: 100%;
+                position: absolute;
+                background: #000;
+                top: 0; left: 0;
+                opacity: 0;
+                transition: 0.8s;
+                padding: 20px; box-sizing: border-box;
+                color: #FFF;
+                font-size: 17px;
+                line-height: 1.89;
+
+                display: -webkit-box;
+                -webkit-line-clamp: 10; /* 원하는 줄 수 표시 */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            &:hover .txt {
+                opacity: 0.7;
+            }
+            img {
+                width: 245px;
+            }
+        }
         h3 {
             width: 245px;
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
             text-indent: 5px;
-            font-size: 27px; font-weight: 500;
+            font-size: 27px; font-weight: 600;
             color: #352461;
+            margin: 10px 0;
         }
         p {
             text-indent: 5px;
@@ -94,7 +125,7 @@ background: #352461;
                     width: 1px; height: 14px;
                     background: #bcb0d0;
                     position: absolute;
-                    top: 55%; left: -5%;
+                    top: 55%; left: -6%;
                     transform: translateY(-50%);
                 }
             }
@@ -118,7 +149,6 @@ background: #352461;
                 }
             }
         }
-    }
 .checkbox-wrapper-3 {
     background: #352461;
     padding: 40px 0 0 50px;
@@ -189,65 +219,74 @@ background: #352461;
 
 // MegaboxModal
 export const MegaboxModalBox = styled.div`
-    .bg { position: fixed; width: 100%; height: 100%; left: 0; top: 0; background: #000; opacity: 0.7;}
-    .popup { position: fixed; width: 700px;
-        left: 50%; top: 50%; background-color: #fff;
+    .bg { position: fixed; width: 100%; height: 100%; left: 0; top: 0; background: #000; opacity: 0.8;}
+    .popup { position: fixed;
+        width: 900px; height: 700px;
+        left: 50%; top: 50%;
         transform: translate(-50%, -50%);
         padding: 30px; box-sizing: border-box;
+        background: #000;
+        border: 1px solid #352461;
+        .popbg {
+            width: 100%; height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            background-size: cover;
+            z-index: -10;
+            opacity: 0.15;
+            -webkit-filter: blur(5px); 
+            background-position: 50% 50%;
+        }
         .close {
             position: absolute;
             top: 15px; right: 20px;
             font-size: 30px;
+            color: #bcb0d0;
             cursor: pointer;
         }
         strong {
-            font-size: 32px;
-            font-weight: 700;
-            color: #352461;
-           vertical-align: middle;
-            span {
-                font-size: 50px;
+                font-size: 32px;
                 font-weight: 700;
-                color: #ffd309;
-                margin-left: 35px;
-            }
+                color: #bcb0d0;
+                margin-right: 20px;
         }
-        em {
-            margin-left: 20px;
-            font-size: 16px;
-            color: #bcb0d0;
-            i { color: #ffd309; font-size: 22px; margin-left: 5px;
-                animation: ani 1.5s infinite; }
-                @keyframes ani {
-                0% { opacity: 1; }
-                50% { opacity: 0; }
-                100% { opacity: 1; } }
-        }
-        .info {
-            width: 100%;
+                span {
+                        font-size: 50px;
+                        font-weight: 700;
+                        color: #ffd309;
+                        margin-right: 20px;
+                    }
+                em {
+                    font-size: 16px;
+                    color: #bcb0d0;
+                    i { color: #ffd309; font-size: 22px; margin-left: 5px;
+                        animation: ani 1.5s infinite; }
+                        @keyframes ani {
+                        0% { opacity: 1; }
+                        50% { opacity: 0; }
+                        100% { opacity: 1; } }
+                }
+                h3 {
+                            font-size: 40px;
+                            font-weight: 700;
+                            margin: 0 0 20px;
+                            color: #D017F8;
+                        }
+        .popup-top {
             display: flex;
             align-items: end;
             margin-top: 10px;
-            img { width: 330px; margin-right: 30px;
-                &:hover { transform: scale(105%); transition: 0.3s; } }
+            iframe { margin-right: 30px; }
+            h3 { font-weight: 700;color: #D017F8; }
             div {
-                margin-bottom: 30px;
-                h3 {
-                    font-size: 50px;
-                    font-weight: 700;
-                    margin: 30px 0;
-                    color: #352461;
-                }
-                p {
-                    font-size: 22px;
-                    display: flex;
-                    align-items: center;
-                    strong {
-                        margin: 0 10px;
-                        font-size: 27px;
-                    }
-                }
+                width: 300px;
+                em { color: #bcb0d0; font-size: 20px; display: block;
+                strong { font-size: 30px; margin-right: 0; margin: 0 10px; }}
             }
+        }
+        .popup-bottom {
+            h3 { font-size: 30px; color: #D017F8; margin: 30px 0; }
+            p { font-size: 16px; color: #fff; }
         }
     }
 `

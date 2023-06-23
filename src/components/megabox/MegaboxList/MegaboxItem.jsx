@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MegaboxItem = ( {item, onModal, onLike} ) => {
-    const {rnum, movieNm, rank, audiAcc, openDt, like, imageURL} = item;
+    const {rnum, movieNm, audiCnt, audiAcc, openDt, like, story, imageURL} = item;
 
     let audiK; // 누적 관객 수 M, K
     if (audiAcc >= 1000) {
@@ -11,10 +11,15 @@ const MegaboxItem = ( {item, onModal, onLike} ) => {
 
     return (
         <li>
-            <img src={imageURL} alt={movieNm} />
+            <div className="img">
+                <img src={imageURL} alt={movieNm} />
+                <div className="txt">
+                    {story}
+                </div>
+            </div>
             <h3>{movieNm}</h3>
             <p>
-                <span>예매 순위 {rank}위</span>
+                <span>예매율 {audiCnt}%</span>
                 <span>개봉일 {openDt}</span>
             </p>
             <div className="btn">
